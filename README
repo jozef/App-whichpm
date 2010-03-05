@@ -1,0 +1,40 @@
+NAME
+    App::whichpm - locate a Perl module and it's version
+
+SYNOPSIS
+            use App::whichpm 'which_pm';
+            my ($filename, $version) = which_pm('App::whichpm');
+            my $filename = App::whichpm::find('App::whichpm');
+
+    from shell:
+
+            whichpm App::whichpm
+            whichpm Universe::ObservableUniverse::Filament::SuperCluster::Cluster::Group::Galaxy::Arm::Bubble::InterstellarCloud::SolarSystem::Earth
+
+DESCRIPTION
+    Loads a given module and reports it's location and version.
+
+EXPORTS
+  which_pm
+    same as find only exported under `which_pm' name.
+
+FUNCTIONS
+  find($module_name)
+    Loads the `$module_name'.
+
+    In scalar context returns filename coresponding to `$module_name'. In
+    array context returns filename and version.
+
+    `$module_name' can be either `Some::Module::Name' or
+    `Some/Module/Name.pm'
+
+LICENSE AND COPYRIGHT
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of either: the GNU General Public License as published
+    by the Free Software Foundation; or the Artistic License.
+
+    See http://dev.perl.org/licenses/ for more information.
+
+AUTHOR
+    Jozef Kutej
+
