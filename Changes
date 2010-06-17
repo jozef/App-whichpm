@@ -1,5 +1,8 @@
 Revision history for App-whichpm
 
+0.02    10 Mar 2010
+    * windows '\' friendly find()
+
 0.01     5 Mar 2010
     * First version, released on an unsuspecting world.
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 12;
+use Test::More tests => 13;
 
 use File::Spec;
 use FindBin qw($Bin);
@@ -39,6 +39,7 @@ sub main {
 
 	# pass filename
 	is(App::whichpm::find('Acme/nonEmpty.pm'), $acme_non_empty_filename, 'nonEmpty');
+	is(App::whichpm::find('Acme\nonEmpty.pm'), $acme_non_empty_filename, 'nonEmpty (windows path)');
 	
 	# execute script
 	my $whichpm_script = File::Spec->catfile($Bin, '..', 'script', 'whichpm');

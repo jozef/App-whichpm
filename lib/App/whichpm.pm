@@ -24,7 +24,9 @@ Loads a given module and reports it's location and version.
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
+
+use File::Spec;
 
 use Exporter 'import';
 our @EXPORT_OK = qw(
@@ -59,14 +61,12 @@ sub find {
 	my $module_filename;
 	
 	if ($module_name =~ m/\.pm$/xms) {
-		$module_filename = $module_name;
-		$module_name     =~ s{/}{::};
 		$module_name     = substr($module_name, 0, -3);
+		$module_name     =~ s{[/\\]}{::}g;
 	}
-	else {
-		$module_filename = $module_name.'.pm';
-		$module_filename =~ s{::}{/}xmsg;
-	}
+
+	$module_filename = $module_name.'.pm';
+	$module_filename = File::Spec->catfile(split('::', $module_filename));
 	
 	eval "use $module_name;";
 	my $filename = $INC{$module_filename};
