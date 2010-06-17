@@ -22,7 +22,7 @@ FUNCTIONS
   find($module_name)
     Loads the `$module_name'.
 
-    In scalar context returns filename coresponding to `$module_name'. In
+    In scalar context returns filename corresponding to `$module_name'. In
     array context returns filename and version.
 
     `$module_name' can be either `Some::Module::Name' or
