@@ -24,7 +24,7 @@ Loads a given module and reports it's location and version.
 use warnings;
 use strict;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use File::Spec;
 
@@ -65,11 +65,12 @@ sub find {
 		$module_name     =~ s{[/\\]}{::}g;
 	}
 
-	$module_filename = $module_name.'.pm';
-	$module_filename = File::Spec->catfile(split('::', $module_filename));
+	$module_filename        = $module_name.'.pm';
+	my $module_inc_filename = join('/', split('::', $module_filename));
+	$module_filename        = File::Spec->catfile(split('::', $module_filename));
 	
 	eval "use $module_name;";
-	my $filename = $INC{$module_filename};
+	my $filename = $INC{$module_inc_filename};
 	
 	# if the filename is not in %INC then try to search the @INC folders
 	if (not $filename) {
@@ -80,6 +81,9 @@ sub find {
 		}
 		return;
 	}
+	
+	# MSWin32 has unix / in the %INC folder paths, so recreate the filename
+	$filename = File::Spec->catfile(split(m{[/\\]}, $filename));
 	
 	if (wantarray) {
 		my $version  = eval { $module_name->VERSION };
