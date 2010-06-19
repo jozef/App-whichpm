@@ -7,6 +7,8 @@ whichpm - locate a Perl module and it's version
 =head1 SYNOPSIS
 
 	whichpm Some::Module::Name
+	whichpm -q Some::Module::Name
+	whichpm --quiet Some::Module::Name
 
 =head1 DESCRIPTION
 
@@ -19,19 +21,40 @@ use strict;
 use warnings;
 
 use App::whichpm 'which_pm';
+use Getopt::Long;
+use Pod::Usage;
 
 exit main();
 
 sub main {
 	my $help;
+	my $quiet;
+	my $version;
+	GetOptions(
+		'help|h'    => \$help,
+		'quiet|q'   => \$quiet,
+		'version|v' => \$version,
+	) or pod2usage;
+	pod2usage if $help;
+	
+	# show version
+	if ($version) {
+		print App::whichpm->VERSION, "\n";
+		return 0;
+	}
 
 	print STDERR "usage: $0 Some::Module::Name\n"
 		if not @ARGV;
-
+	
 	# lookup for all modules passed on command line
 	while (my $mn = shift @ARGV) {
 		my ($filename, $version) = which_pm($mn);
-		print $filename, ($version ? ' '.$version : ()), "\n"
+		
+		# don't show version in quiet mode
+		$version = undef
+			if $quiet;
+
+		print $filename, (defined $version ? ' '.$version : ()), "\n"
 			if $filename;
 	}
 

@@ -13,6 +13,8 @@ my $builder = Module::Build->new(
     },
     requires => {
         'File::Spec'             => 0,
+        'Getopt::Long'           => 0,
+        'Pod::Usage'             => 0,
     },
     script_files => [
         'script/whichpm',

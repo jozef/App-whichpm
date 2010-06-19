@@ -19,12 +19,20 @@ from shell:
 
 Loads a given module and reports it's location and version. 
 
+The similar behaviour can be achieved via:
+
+	perldoc -l Some::Module
+	perl -MSome::Module -le 'print $INC{"Some/Module.pm"}'
+	perl -MSome::Module -le 'print Some::Module->VERSION'
+	pmpath Some::Module
+	pmvers Some::Module
+
 =cut
 
 use warnings;
 use strict;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use File::Spec;
 
@@ -97,6 +105,11 @@ sub find {
 
 
 __END__
+
+=head1 SEE ALSO
+
+L<http://perlmonks.org/?node=whichpm>, L<pmpath|http://search.cpan.org/perldoc?pmpath>,
+L<Module::InstalledVersion>, L<Module::Info>
 
 =head1 LICENSE AND COPYRIGHT
 
