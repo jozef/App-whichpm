@@ -14,6 +14,14 @@ SYNOPSIS
 DESCRIPTION
     Loads a given module and reports it's location and version.
 
+    The similar behaviour can be achieved via:
+
+            perldoc -l Some::Module
+            perl -MSome::Module -le 'print $INC{"Some/Module.pm"}'
+            perl -MSome::Module -le 'print Some::Module->VERSION'
+            pmpath Some::Module
+            pmvers Some::Module
+
 EXPORTS
   which_pm
     same as find only exported under `which_pm' name.
@@ -27,6 +35,10 @@ FUNCTIONS
 
     `$module_name' can be either `Some::Module::Name' or
     `Some/Module/Name.pm'
+
+SEE ALSO
+    http://perlmonks.org/?node=whichpm, pmpath, Module::InstalledVersion,
+    Module::Info
 
 LICENSE AND COPYRIGHT
     This program is free software; you can redistribute it and/or modify it
