@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 14;
+use Test::More tests => 15;
 
 use File::Spec;
 use FindBin qw($Bin);
@@ -50,7 +50,8 @@ sub main {
 	my $whichpm_script = File::Spec->catfile($Bin, '..', 'script', 'whichpm');
 	my $inc            = join(' ', map { '-I'.$_ } @INC);
 	like(`$^X $inc $whichpm_script 2>&1`, qr/usage:/, 'no argv => usage');
-	like(`$^X $inc $whichpm_script App::whichpm`, qr{App[/\\]whichpm.pm \s \d}xms, 'whichpm App::whichpm');
+	like(`$^X $inc $whichpm_script App::whichpm -v`, qr{App[/\\]whichpm.pm \s \d}xms, 'whichpm App::whichpm');
+	like(`$^X $inc $whichpm_script App::whichpm`, qr{App[/\\]whichpm.pm $}xms, 'whichpm App::whichpm');
 	like(`$^X $inc $whichpm_script Acme::nonExisting`, qr{^$}xms, 'whichpm Acme::nonExisting');
 	
 	return 0;

@@ -6,13 +6,29 @@ whichpm - locate a Perl module and it's version
 
 =head1 SYNOPSIS
 
+	# shows path and version (if vailable) of the Perl module
 	whichpm Some::Module::Name
+	whichpm -v Some::Module::Name
+	whichpm --verbose Some::Module::Name
+	
+	# shows just path to the Perl module
 	whichpm -q Some::Module::Name
 	whichpm --quiet Some::Module::Name
+	
+	# show version of App::whichpm
+	whichpm -V
+	whichpm --version
+	
+	# show/edit .pm file
+	less `whichpm Some::Module::Name`
+	vim `whichpm Some::Module::Name`
 
 =head1 DESCRIPTION
 
 Loads the module, prints its file system location and version.
+
+When STDOUT is not a TTY, prints just file name by default. (-v can force
+printing version too)
 
 =cut
 
@@ -28,14 +44,18 @@ exit main();
 
 sub main {
 	my $help;
-	my $quiet;
+	my $quiet = (-t STDOUT ? 0 : 1);
 	my $version;
+	my $verbose;
 	GetOptions(
 		'help|h'    => \$help,
 		'quiet|q'   => \$quiet,
-		'version|v' => \$version,
+		'version|V' => \$version,
+		'verbose|v' => \$verbose,
 	) or pod2usage;
 	pod2usage if $help;
+	
+	$quiet = 0 if $verbose;
 	
 	# show version
 	if ($version) {
