@@ -19,7 +19,7 @@ from shell:
 
 Loads a given module and reports it's location and version. 
 
-The similar behaviour can be achieved via:
+The similar function can be achieved via:
 
 	perldoc -l Some::Module
 	perl -MSome::Module -le 'print $INC{"Some/Module.pm"}'

@@ -22,5 +22,7 @@ add_stopwords(qw(
 	AnnoCPAN
 	http
 	whichpm
+	pmpath
+	STDOUT
 ));
 all_pod_files_spelling_ok();
