@@ -16,12 +16,12 @@ my $builder = Module::Build->new(
         'Getopt::Long'           => 0,
         'Pod::Usage'             => 0,
     },
+    configure_requires  => { 'Module::Build' => '0.38' },
     script_files => [
         'script/whichpm',
     ],
     add_to_cleanup => [ 'App-whichpm-*' ],
     create_readme  => 1,
-    sign           => 1,
     meta_merge => {
         resources => {
             repository => 'http://github.com/jozef/App-whichpm/',

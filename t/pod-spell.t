@@ -24,5 +24,6 @@ add_stopwords(qw(
 	whichpm
 	pmpath
 	STDOUT
+	blog
 ));
 all_pod_files_spelling_ok();

@@ -10,15 +10,15 @@ whichpm - locate a Perl module and it's version
 	whichpm Some::Module::Name
 	whichpm -v Some::Module::Name
 	whichpm --verbose Some::Module::Name
-	
+
 	# shows just path to the Perl module
 	whichpm -q Some::Module::Name
 	whichpm --quiet Some::Module::Name
-	
+
 	# show version of App::whichpm
 	whichpm -V
 	whichpm --version
-	
+
 	# show/edit .pm file
 	less `whichpm Some::Module::Name`
 	vim `whichpm Some::Module::Name`
@@ -54,29 +54,36 @@ sub main {
 		'verbose|v' => \$verbose,
 	) or pod2usage;
 	pod2usage if $help;
-	
+
 	$quiet = 0 if $verbose;
-	
+
 	# show version
 	if ($version) {
 		print App::whichpm->VERSION, "\n";
 		return 0;
 	}
 
-	print STDERR "usage: $0 Some::Module::Name\n"
-		if not @ARGV;
-	
+	unless (@ARGV) {
+		print STDERR "usage: $0 Some::Module::Name\n";
+		return 1;
+	}
+
 	# lookup for all modules passed on command line
+	my $all_ok = 1;
 	while (my $mn = shift @ARGV) {
 		my ($filename, $version) = which_pm($mn);
-		
+
 		# don't show version in quiet mode
 		$version = undef
 			if $quiet;
 
-		print $filename, (defined $version ? ' '.$version : ()), "\n"
-			if $filename;
+		if ($filename) {
+			print $filename, (defined $version ? ' '.$version : ()), "\n";
+		}
+		else {
+			$all_ok = 0;
+		}
 	}
 
-	return 0;
+	return ($all_ok ? 0 : 1);
 }
