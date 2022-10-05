@@ -1,5 +1,8 @@
 Revision history for App-whichpm
 
+0.06    ?? ??? 2022
+    * add -l and -I parameters to add @INC paths
+
 0.05    29 May 2015
     * whichpm does exit(1) when .pm not found (thanks Skye Shaw)
 
