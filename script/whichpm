@@ -21,7 +21,6 @@ whichpm - locate a Perl module and it's version
 	whichpmv -Imylib Some::Module::Name
 
 	# show version of App::whichpm
-	whichpm -V
 	whichpm --version
 
 	# show/edit .pm file
@@ -58,7 +57,7 @@ sub main {
 	GetOptions(
 		'help|h'    => \$help,
 		'quiet|q'   => \$quiet,
-		'version|V' => \$version,
+		'version'   => \$version,
 		'verbose|v' => \$verbose,
 		'I=s'       => \@into_inc,
 		'lib|l'     => \$add_lib,
