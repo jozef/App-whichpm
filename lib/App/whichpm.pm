@@ -124,6 +124,7 @@ order):
 
 	Jerrad Pierce
 	Skye Shaw
+	Andreas Hadjiprocopis
 
 =head1 LICENSE AND COPYRIGHT
 
